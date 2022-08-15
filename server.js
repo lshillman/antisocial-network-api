@@ -1,5 +1,6 @@
 const express = require('express');
 const routes = require('./routes');
+const mongoose = require("mongoose");
 
 
 const app = express();
@@ -10,7 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(routes);
 
-// sync sequelize models to the database, then turn on the server
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
-});
+mongoose.connect('mongodb://localhost/antisocial');
+
+app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
