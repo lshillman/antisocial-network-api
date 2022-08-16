@@ -1,6 +1,7 @@
 const express = require('express');
+const db = require('./config/connection');
+
 const routes = require('./routes');
-const mongoose = require("mongoose");
 
 
 const app = express();
@@ -13,4 +14,8 @@ app.use(routes);
 
 mongoose.connect('mongodb://localhost/antisocial');
 
-app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
+db.once('open', () => {
+  app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
+  });
+});
