@@ -1,8 +1,21 @@
+// const express = require('express');
+// const app = express();
 const router = require('express').Router();
-// const { Category, Product } = require('../../models');
+const { User } = require('../../models');
 
-// The `/api/categories` endpoint
+router.post('/', (req, res) => {
+  const newUser = new User({ });
+  newUser.save();
+  if (newUser) {
+    res.status(200).json(newUser);
+  } else {
+    console.log('Uh Oh, something went wrong');
+    res.status(500).json({ message: 'something went wrong' });
+  }
+});
 
+
+/*
 router.get('/', async (req, res) => {
   // find all categories
   // be sure to include its associated Products
@@ -69,6 +82,6 @@ router.delete('/:id', async (req, res) => {
   } catch (err) {
     res.status(400).json(err);
   }
-});
+}); */
 
 module.exports = router;
