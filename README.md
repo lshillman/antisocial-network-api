@@ -93,6 +93,7 @@ Endpoint: `/api/thoughts/thoughtID/reactions`
 ## Demo video
 
 
+https://user-images.githubusercontent.com/5232938/185511056-0940807c-6c61-4b10-8a75-2e42a592f573.mp4
 
 
 
