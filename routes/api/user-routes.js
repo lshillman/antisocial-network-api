@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { User, Thought } = require('../../models');
 
+
+// create a user
 router.post('/', async (req, res) => {
   const newUser = new User({
     username: req.body.username,
@@ -15,6 +17,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// get all users
 router.get('/', (req, res) => {
   User.find({}, (err, result) => {
     if (result) {
