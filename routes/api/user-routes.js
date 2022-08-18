@@ -72,5 +72,38 @@ router.delete('/:id', (req, res) => {
 });
 
 
+// add a friend to a user
+router.post('/:uid/friends/:fid', (req, res) => {
+  User.findOneAndUpdate(
+    {_id: req.params.uid},
+    {$addToSet: { friends: req.params.fid }},
+    {new: true},
+    (err, result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(500).json({ message: 'failed to add friend!' });
+      }
+    }
+  );
+});
+
+// remove a friend to a user
+router.delete('/:uid/friends/:fid', (req, res) => {
+  User.findOneAndUpdate(
+    {_id: req.params.uid},
+    {$pull: { friends: req.params.fid }},
+    {new: true},
+    (err, result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(500).json({ message: 'failed to remove friend!' });
+      }
+    }
+  );
+});
+
+
 
 module.exports = router;
