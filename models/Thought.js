@@ -48,7 +48,11 @@ const thoughtSchema = new Schema({
 
 thoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
-  });
+});
+
+thoughtSchema.virtual('createdTime').get(function() {
+    return this.createdAt.toLocaleString();
+});
 
 
 
