@@ -39,6 +39,38 @@ router.get('/:id', (req, res) => {
 })
 
 
+// update a user
+router.put('/:id', (req, res) => {
+  User.findOneAndUpdate(
+    {_id: req.params.id},
+    {username: req.body.username, email: req.body.email},
+    {new: true},
+    (err, result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(500).json({ message: 'failed to update!' });
+      }
+    }
+  );
+});
+
+// delete a user and its associated thoughts
+router.delete('/:id', (req, res) => {
+  User.findOneAndDelete({_id: req.params.id})
+    .then((user) => {
+      return Thought.deleteMany(
+        { username: user.username },
+        { new: true }
+      );
+    })
+    .then((data) => res.status(200).json(data))
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
+  });
+});
+
 
 
 module.exports = router;
