@@ -97,5 +97,22 @@ router.post('/:id/reactions', (req, res) => {
   );
 });
 
+// delete a reaction
+router.delete('/:id/reactions', (req, res) => {
+  let reaction = req.body.reactionId;
+  Thought.findOneAndUpdate(
+    {_id: req.params.id},
+    {$pull: {reactions: {reactionId: reaction}}},
+    {new: true},
+    (err, result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(500).json({ message: 'failed to update!' });
+      }
+    }
+  );
+});
+
 
 module.exports = router;
